@@ -1,8 +1,13 @@
 import React from "react";
-import { Router,Routes, Route } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import hero from "../../Images/hero.svg";
 
 function Landing() {
+    const navigate = useNavigate();
+
+  const gototable = () => {
+    navigate('/table');
+  };
   return (
     <>
       <div className="header py-2 lg:py-4 px-4 lg:px-8 flex flex-col lg:flex-row justify-between items-center sticky top-0 bg-blue-100 z-10">
@@ -57,7 +62,7 @@ function Landing() {
             The ultimate resource for alerting doctors effectivly based on the priority need algorithms.
           </p>
           <div className="text-center lg:text-left">
-            <button className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-full transition duration-300">
+            <button onClick={gototable} className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-full transition duration-300">
               Start Now
             </button>
           </div>

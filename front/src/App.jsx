@@ -1,20 +1,16 @@
-// import React from 'react';
-// import './App.css';
-// import landing from './component/landing'
-// const App = () => {
-//   return (
-//     <div>
-//       <landing/>
-//     </div>
-//   );
-// };
 
-// export default App;
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from "./component/landing";
+import Table from "./component/table"
 function App() {
-  return ( <div>
-    <Landing/>
-  </div> );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/table" element={<Table />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
