@@ -18,9 +18,9 @@ const fetchDataAndExtractVariables = async () => {
 
     // Extract required variables
     const patientNo =
-      response1.data.feeds[0]?.field1.toString().charAt(0) || "0"; // Get first character as string, fallback to '0'
+      response1.data.feeds[0]?.field1.toString()|| "0"; // Get first character as string, fallback to '0'
     const emergencyNo =
-      response2.data.feeds[0]?.field2.toString().charAt(0) || "0"; // Get first character as string, fallback to '0'
+      response2.data.feeds[0]?.field2.toString()|| "0"; // Get first character as string, fallback to '0'
     const time = new Date().toISOString(); // Represents the time you received the data
 
     return { patientNo, emergencyNo, time };
@@ -29,6 +29,33 @@ const fetchDataAndExtractVariables = async () => {
     throw new Error("Failed to fetch data"); // Throw error to propagate to caller
   }
 };
+
+const sendMessageToTelegram = async (message) => {
+  const botToken = '7334211815:AAEuuuLyn31m9-wnVeSlph2iIB4j3HMvhVY';
+  const chatId = 1262984155; // Replace with your actual chat ID
+  const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+  try {
+    const response = await axios.post(telegramApiUrl, {
+      chat_id: chatId,
+      text: message,
+    });
+
+    if (response.data.ok) {
+      console.log('Message sent successfully!');
+    } else {
+      console.log('Failed to send message:', response.data);
+    }
+  } catch (error) {
+    console.error('Error sending message to Telegram:', error);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
+    }
+  }
+};
+
 
 const Table = () => {
   const navigate = useNavigate();
@@ -43,6 +70,9 @@ const Table = () => {
     const fetchData = async () => {
       try {
         const fetchedData = await fetchDataAndExtractVariables();
+
+        // Send the room number (patientNo) to Telegram
+        await sendMessageToTelegram(`Room Number: ${fetchedData.patientNo}`);
 
         // Add new data object to the beginning of the dataList array
         setDataList([fetchedData, ...dataList]);
@@ -73,7 +103,6 @@ const Table = () => {
         <thead>
           <tr className="bg-gray-200">
             <th className="border border-gray-300 px-4 py-2">Room number</th>
-            {/* Corrected capitalization */}
             <th className="border border-gray-300 px-4 py-2">Emergency Number</th>
             <th className="border border-gray-300 px-4 py-2">Call time</th>
           </tr>
