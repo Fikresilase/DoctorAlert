@@ -6,7 +6,7 @@ function Landing() {
   const navigate = useNavigate();
 
   const gototable = () => {
-    navigate("/table");
+    navigate("/signup");
   };
   return (
     <>
@@ -17,37 +17,17 @@ function Landing() {
           </h1>
         </div>
         <div className="navbar mb-4 lg:mb-0 flex flex-wrap justify-center lg:justify-start">
-          <a
-            href="#home"
-            className="mx-2 lg:mx-4 px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base text-blue-900 transition duration-300 rounded-lg group"
-          >
-            Home
-            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-blue-900"></span>
-          </a>
-          <a
-            onClick={() => scrollToSection("features")}
-            href="#features"
-            className="mx-2 lg:mx-4 px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base text-blue-900 transition duration-300 rounded-lg group"
-          >
-            Features
-            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-blue-900"></span>
-          </a>
-          <a
-            onClick={() => scrollToSection("pricing")}
-            href="#pricing"
-            className="mx-2 lg:mx-4 px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base text-blue-900 transition duration-300  rounded-lg group"
-          >
-            Pricing
-            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-blue-900"></span>
-          </a>
+          {/*  */}
         </div>
         <div className="registration flex flex-wrap justify-center lg:justify-end">
-          <button className="px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base rounded font-sans border-none font-semibold text-blue-900 hover:text-white hover:bg-blue-600 hover:shadow-md duration-300 transition-colors">
-            Login
+          <button
+          onClick={gototable}
+          className="px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base rounded font-sans border-none font-semibold text-blue-900 hover:text-white hover:bg-blue-600 hover:shadow-md duration-300 transition-colors">
+            Register your Hospital
           </button>
-          <button className="px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base rounded font-sans border-none font-semibold text-blue-900 hover:text-white hover:bg-blue-600 hover:shadow-md duration-300 transition-colors">
+          {/* <button className="px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base rounded font-sans border-none font-semibold text-blue-900 hover:text-white hover:bg-blue-600 hover:shadow-md duration-300 transition-colors">
             Signup
-          </button>
+          </button> */}
         </div>
       </div>
       <div
