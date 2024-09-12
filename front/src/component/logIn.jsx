@@ -16,7 +16,7 @@ function Login({ onSignUpOpen }) {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-blue-100">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-sm p-4 relative">
         {/* Back arrow button */}
         <button
