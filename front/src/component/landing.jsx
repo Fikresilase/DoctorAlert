@@ -5,7 +5,7 @@ import hero from "../../Images/hero.svg";
 function Landing() {
   const navigate = useNavigate();
 
-  const gototable = () => {
+  const gotosignup = () => {
     navigate("/signup");
   };
   return (
@@ -21,13 +21,11 @@ function Landing() {
         </div>
         <div className="registration flex flex-wrap justify-center lg:justify-end">
           <button
-          onClick={gototable}
+          onClick={gotosignup}
           className="px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base rounded font-sans border-none font-semibold text-blue-900 hover:text-white hover:bg-blue-600 hover:shadow-md duration-300 transition-colors">
             Register your Hospital
           </button>
-          {/* <button className="px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base rounded font-sans border-none font-semibold text-blue-900 hover:text-white hover:bg-blue-600 hover:shadow-md duration-300 transition-colors">
-            Signup
-          </button> */}
+         
         </div>
       </div>
       <div
@@ -44,7 +42,7 @@ function Landing() {
           </p>
           <div className="text-center lg:text-left">
             <button
-              onClick={gototable}
+              onClick={gotosignup}
               className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-full transition duration-300"
             >
               Start Now

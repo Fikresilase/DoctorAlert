@@ -1,7 +1,13 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import google from "../../Images/google.svg";
 import facebook from "../../Images/facebook.svg";
 
 function Login({ onSignUpOpen }) {
+    const navigate = useNavigate();
+
+  const gotosignup = () => {
+    navigate("/signup");}
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-sm p-4">
@@ -84,7 +90,7 @@ function Login({ onSignUpOpen }) {
         <p className="text-xs font-light text-gray-500 mt-3">
           Don't have an account?{" "}
           <button
-            onClick={onSignUpOpen}
+            onClick={gotosignup}
             className="font-medium text-blue-600 hover:underline"
           >
             Sign up here
