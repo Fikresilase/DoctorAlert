@@ -1,18 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi"; // Import the arrow icon
+import { FiArrowLeft } from "react-icons/fi";
 import google from "../../Images/google.svg";
 import facebook from "../../Images/facebook.svg";
 
-function SignUp({ onLoginOpen }) {
+function SignUp() {
   const navigate = useNavigate();
+
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    username: '',
+    password: ''
+  });
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const goToLogin = () => {
     navigate("/login");
   };
 
   const goBackHome = () => {
-    navigate("/"); // Navigates back to the home page
+    navigate("/"); // Navigate to home page
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Simple validation
+    if (!formData.name || !formData.username || !formData.password) {
+      setErrorMessage("All fields are required.");
+      return;
+    }
+
+    // Mock signup logic (replace this with API call)
+    console.log("User signed up with:", formData);
+
+    // Redirect to login page after successful signup
+    navigate("/login");
   };
 
   return (
@@ -27,20 +60,29 @@ function SignUp({ onLoginOpen }) {
         </button>
 
         <h1 className="text-lg font-semibold leading-tight tracking-tight text-gray-900 mb-3 text-center">
-          Create an account
+          Create a hospital account
         </h1>
-        <form className="space-y-3" method="POST">
+
+        {errorMessage && (
+          <div className="text-red-500 text-sm text-center mb-2">
+            {errorMessage}
+          </div>
+        )}
+
+        <form className="space-y-3" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="name"
               className="block mb-1 text-sm font-medium text-gray-900"
             >
-              Your full name
+              Hospital name
             </label>
             <input
               type="text"
               name="name"
               id="name"
+              value={formData.name}
+              onChange={handleChange}
               className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
               placeholder="Emelia Erickson"
               required
@@ -57,6 +99,8 @@ function SignUp({ onLoginOpen }) {
               type="text"
               name="username"
               id="username"
+              value={formData.username}
+              onChange={handleChange}
               className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
               placeholder="emelia_erickson24"
               required
@@ -73,6 +117,8 @@ function SignUp({ onLoginOpen }) {
               type="password"
               name="password"
               id="password"
+              value={formData.password}
+              onChange={handleChange}
               className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
               placeholder="••••••••"
               required
@@ -85,6 +131,7 @@ function SignUp({ onLoginOpen }) {
             Create an account
           </button>
         </form>
+
         <div className="flex justify-center items-center mt-3">
           <div className="w-1/3">
             <hr className="border-t border-gray-300" />
@@ -94,6 +141,7 @@ function SignUp({ onLoginOpen }) {
             <hr className="border-t border-gray-300" />
           </div>
         </div>
+
         <div className="flex flex-col space-y-2">
           <button
             type="button"
@@ -118,6 +166,7 @@ function SignUp({ onLoginOpen }) {
             Continue with Facebook
           </button>
         </div>
+
         <p className="text-xs font-light text-gray-500 mt-3 text-center">
           Already have an account?{" "}
           <button

@@ -29,6 +29,7 @@ function Login({ onSignUpOpen }) {
         <h1 className="text-lg font-semibold leading-tight tracking-tight text-gray-900 mb-3 text-center">
           Login to your account
         </h1>
+
         <form className="space-y-3" method="POST">
           <div>
             <label
@@ -69,6 +70,7 @@ function Login({ onSignUpOpen }) {
             Login
           </button>
         </form>
+
         <div className="flex justify-center items-center mt-3">
           <div className="w-1/3">
             <hr className="border-t border-gray-300" />
@@ -78,6 +80,7 @@ function Login({ onSignUpOpen }) {
             <hr className="border-t border-gray-300" />
           </div>
         </div>
+
         <div className="flex flex-col space-y-2">
           <button
             type="button"
@@ -102,6 +105,7 @@ function Login({ onSignUpOpen }) {
             Continue with Facebook
           </button>
         </div>
+
         <p className="text-xs font-light text-gray-500 mt-3 text-center">
           Don't have an account?{" "}
           <button

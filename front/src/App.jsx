@@ -12,6 +12,7 @@ function App() {
         <Route path="/table" element={<Table />} />
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/camera" element={<Login/>}/>
       </Routes>
     </Router>
   );
