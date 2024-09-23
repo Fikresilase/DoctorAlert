@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { IoArrowBack } from "react-icons/io5"; // Import back arrow icon from react-icons
 
 function CameraConnection() {
   const [ipAddress, setIpAddress] = useState("");
@@ -6,6 +8,8 @@ function CameraConnection() {
   const [password, setPassword] = useState("");
   const [connected, setConnected] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate(); // Hook to navigate to another route
 
   const handleConnect = async () => {
     if (!ipAddress || !username || !password) {
@@ -21,13 +25,16 @@ function CameraConnection() {
         body: JSON.stringify({ username, password }),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, // Include JWT if required by the camera API
+          Authorization: `Bearer ${token}`, // Include JWT if required by the camera API
         },
       });
 
       if (response.ok) {
         setConnected(true);
         setError("");
+
+        // Redirect to the Display component, passing the IP address and token as state
+        navigate("/display", { state: { streamUrl: `http://${ipAddress}/stream`, token } });
       } else {
         setConnected(false);
         setError("Failed to connect. Check your IP or credentials.");
@@ -40,7 +47,14 @@ function CameraConnection() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-4 relative">
+        <button 
+          onClick={() => navigate("/")} 
+          className="absolute top-4 left-4 text-blue-600"
+        >
+          <IoArrowBack size={24} />
+        </button>
+
         <h1 className="text-lg font-semibold text-gray-900 mb-4 text-center">
           Connect to Security Camera
         </h1>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi"; // Import the arrow icon
 import google from "../../Images/google.svg";
@@ -9,6 +9,14 @@ function Login({ onSignUpOpen }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/camera"); // Redirect to camera if logged in
+    }
+  }, [navigate]);
 
   const gotoSignUp = () => {
     navigate("/signup");
