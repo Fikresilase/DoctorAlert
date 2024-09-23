@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi"; // Import the arrow icon
 import google from "../../Images/google.svg";
 import facebook from "../../Images/facebook.svg";
 
 function Login({ onSignUpOpen }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const gotoSignUp = () => {
@@ -13,6 +16,27 @@ function Login({ onSignUpOpen }) {
 
   const goBackHome = () => {
     navigate("/"); // Navigates back to the home page
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    // Make a POST request to your login API
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      localStorage.setItem("token", data.token);
+      navigate("/camera"); // Navigate to camera connection on successful login
+    } else {
+      setError(data.message);
+    }
   };
 
   return (
@@ -30,7 +54,9 @@ function Login({ onSignUpOpen }) {
           Login to your account
         </h1>
 
-        <form className="space-y-3" method="POST">
+        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+
+        <form className="space-y-3" onSubmit={handleLogin}>
           <div>
             <label
               htmlFor="username"
@@ -42,6 +68,8 @@ function Login({ onSignUpOpen }) {
               type="text"
               name="username"
               id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
               placeholder="emelia_erickson24"
               required
@@ -58,6 +86,8 @@ function Login({ onSignUpOpen }) {
               type="password"
               name="password"
               id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
               placeholder="••••••••"
               required

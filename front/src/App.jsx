@@ -4,6 +4,7 @@ import Landing from "./component/landing";
 import Table from "./component/table"
 import SignUp from './component/signUp';
 import Login from './component/logIn';
+import CameraConnection from './component/cameraConnection';
 function App() {
   return (
     <Router>
@@ -12,7 +13,7 @@ function App() {
         <Route path="/table" element={<Table />} />
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/camera" element={<Login/>}/>
+        <Route path="/camera" element={<CameraConnection/>}/>
       </Routes>
     </Router>
   );

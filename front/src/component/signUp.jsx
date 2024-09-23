@@ -32,7 +32,7 @@ function SignUp() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Simple validation
@@ -41,11 +41,26 @@ function SignUp() {
       return;
     }
 
-    // Mock signup logic (replace this with API call)
-    console.log("User signed up with:", formData);
+    try {
+      // Make a POST request to your signup API
+      const response = await fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Redirect to login page after successful signup
-    navigate("/login");
+      const data = await response.json();
+      if (response.ok) {
+        // Redirect to login page after successful signup
+        navigate("/login");
+      } else {
+        setErrorMessage(data.message || "Signup failed.");
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred during signup.");
+    }
   };
 
   return (
