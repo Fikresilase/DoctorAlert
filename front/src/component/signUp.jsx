@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { FiArrowLeft } from "react-icons/fi";
 import google from "../../Images/google.svg";
 import facebook from "../../Images/facebook.svg";
@@ -53,8 +53,8 @@ function SignUp() {
 
       const data = await response.json();
       if (response.ok) {
-        // Redirect to login page after successful signup
-        navigate("/login");
+        // Redirect to camera page after successful signup
+        navigate("/camera");
       } else {
         setErrorMessage(data.message || "Signup failed.");
       }
@@ -63,9 +63,31 @@ function SignUp() {
     }
   };
 
+  const handleSocialSignup = async (provider) => {
+    try {
+      // Redirect to the appropriate URL for Google or Facebook
+      const redirectUri = "http://localhost:3000/auth/callback"; // Your callback URL
+      let authUrl;
+
+      if (provider === "Google") {
+        authUrl = `http://localhost:3000/auth/google?redirect_uri=${redirectUri}`;
+      } else if (provider === "Facebook") {
+        authUrl = `http://localhost:3000/auth/facebook?redirect_uri=${redirectUri}`;
+      }
+
+      // Redirect to social authentication provider
+      window.location.href = authUrl;
+
+      // After successful login, handle the token and redirect in the callback URL logic
+    } catch (error) {
+      console.error("Social signup error:", error);
+      setErrorMessage("An error occurred during social signup.");
+    }
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-100">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-sm p-4 relative">
+    <div className="flex items-center justify-center min-h-screen bg-hero-bg bg-cover bg-center">
+      <div className="bg-opacity-80 rounded-lg shadow-lg w-full max-w-sm p-4 relative">
         {/* Back arrow button */}
         <button
           onClick={goBackHome}
@@ -74,7 +96,7 @@ function SignUp() {
           <FiArrowLeft size={24} />
         </button>
 
-        <h1 className="text-lg font-semibold leading-tight tracking-tight text-gray-900 mb-3 text-center">
+        <h1 className="text-lg font-semibold leading-tight text-gray-900 mb-3 text-center">
           Create a hospital account
         </h1>
 
@@ -98,7 +120,7 @@ function SignUp() {
               id="name"
               value={formData.name}
               onChange={handleChange}
-              className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
+              className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full p-2"
               placeholder="Emelia Erickson"
               required
             />
@@ -116,7 +138,7 @@ function SignUp() {
               id="username"
               value={formData.username}
               onChange={handleChange}
-              className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
+              className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full p-2"
               placeholder="emelia_erickson24"
               required
             />
@@ -134,14 +156,14 @@ function SignUp() {
               id="password"
               value={formData.password}
               onChange={handleChange}
-              className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
+              className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full p-2"
               placeholder="••••••••"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white rounded-lg font-medium text-sm px-4 py-2 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300"
+            className="w-full bg-custom-greenblue text-white rounded-lg font-medium text-sm px-4 py-2 hover:bg-custom-darkblue focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300"
           >
             Create an account
           </button>
@@ -160,7 +182,8 @@ function SignUp() {
         <div className="flex flex-col space-y-2">
           <button
             type="button"
-            className="w-full bg-gray-50 text-gray-900 rounded-lg font-medium text-sm px-4 py-2 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 flex items-center justify-center"
+            onClick={() => handleSocialSignup("Google")}
+            className="w-full bg-custom-greenblue text-gray-900 rounded-lg font-medium text-sm px-4 py-2 hover:bg-custom-darkblue focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 flex items-center justify-center"
           >
             <img
               src={google}
@@ -171,7 +194,8 @@ function SignUp() {
           </button>
           <button
             type="button"
-            className="w-full bg-gray-50 text-gray-900 rounded-lg font-medium text-sm px-4 py-2 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 flex items-center justify-center"
+            onClick={() => handleSocialSignup("Facebook")}
+            className="w-full bg-custom-greenblue text-gray-900 rounded-lg font-medium text-sm px-4 py-2 hover:bg-custom-darkblue focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 flex items-center justify-center"
           >
             <img
               src={facebook}
@@ -182,11 +206,11 @@ function SignUp() {
           </button>
         </div>
 
-        <p className="text-xs font-light text-gray-500 mt-3 text-center">
+        <p className="text-xs font-light text-black mt-3 text-center">
           Already have an account?{" "}
           <button
             onClick={goToLogin}
-            className="font-medium text-blue-600 hover:underline"
+            className="font-medium text-black hover:underline"
           >
             Sign in here
           </button>

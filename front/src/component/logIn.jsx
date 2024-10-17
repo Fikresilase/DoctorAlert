@@ -1,35 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi"; // Import the arrow icon
+import { FiArrowLeft } from "react-icons/fi";
 import google from "../../Images/google.svg";
 import facebook from "../../Images/facebook.svg";
 
-function Login({ onSignUpOpen }) {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the user is already logged in
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/camera"); // Redirect to camera if logged in
+      navigate("/camera");
     }
   }, [navigate]);
 
-  const gotoSignUp = () => {
-    navigate("/signup");
-  };
-
   const goBackHome = () => {
-    navigate("/"); // Navigates back to the home page
+    navigate("/");
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Make a POST request to your login API
+    if (!username || !password) {
+      setError("All fields are required.");
+      return;
+    }
+
     const response = await fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
@@ -41,16 +40,23 @@ function Login({ onSignUpOpen }) {
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("token", data.token);
-      navigate("/camera"); // Navigate to camera connection on successful login
+      navigate("/camera");
     } else {
       setError(data.message);
     }
   };
 
+  const handleSocialLogin = (provider) => {
+    // Implement your social login logic here
+    // For example, redirect to a social login API or handle it through your backend
+    console.log(`${provider} login initiated`);
+    // On successful login, redirect to camera
+    navigate("/camera");
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-100">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-sm p-4 relative">
-        {/* Back arrow button */}
+    <div className="flex items-center justify-center min-h-screen bg-hero-bg bg-cover bg-center">
+      <div className="bg-opacity-80 rounded-lg shadow-lg w-full max-w-sm p-4 relative">
         <button
           onClick={goBackHome}
           className="absolute top-4 left-4 text-gray-600 hover:text-gray-800 focus:outline-none"
@@ -58,7 +64,7 @@ function Login({ onSignUpOpen }) {
           <FiArrowLeft size={24} />
         </button>
 
-        <h1 className="text-lg font-semibold leading-tight tracking-tight text-gray-900 mb-3 text-center">
+        <h1 className="text-lg font-semibold leading-tight text-gray-900 mb-3 text-center">
           Login to your account
         </h1>
 
@@ -66,10 +72,7 @@ function Login({ onSignUpOpen }) {
 
         <form className="space-y-3" onSubmit={handleLogin}>
           <div>
-            <label
-              htmlFor="username"
-              className="block mb-1 text-sm font-medium text-gray-900"
-            >
+            <label htmlFor="username" className="block mb-1 text-sm font-medium text-gray-900">
               Username
             </label>
             <input
@@ -78,16 +81,13 @@ function Login({ onSignUpOpen }) {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
+              className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full p-2"
               placeholder="emelia_erickson24"
               required
             />
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block mb-1 text-sm font-medium text-gray-900"
-            >
+            <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-900">
               Password
             </label>
             <input
@@ -96,14 +96,14 @@ function Login({ onSignUpOpen }) {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-gray-100 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-100 focus:border-blue-100 block w-full p-2"
+              className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full p-2"
               placeholder="••••••••"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white rounded-lg font-medium text-sm px-4 py-2 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300"
+            className="w-full bg-custom-greenblue text-white rounded-lg font-medium text-sm px-4 py-2 hover:bg-custom-darkblue focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300"
           >
             Login
           </button>
@@ -122,33 +122,27 @@ function Login({ onSignUpOpen }) {
         <div className="flex flex-col space-y-2">
           <button
             type="button"
-            className="w-full bg-gray-50 text-gray-900 rounded-lg font-medium text-sm px-4 py-2 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 flex items-center justify-center"
+            onClick={() => handleSocialLogin("Google")}
+            className="w-full bg-custom-greenblue text-gray-900 rounded-lg font-medium text-sm px-4 py-2 hover:bg-custom-darkblue focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 flex items-center justify-center"
           >
-            <img
-              src={google}
-              alt="Google Icon"
-              className="h-4 w-4 inline-block mr-2"
-            />
+            <img src={google} alt="Google Icon" className="h-4 w-4 inline-block mr-2" />
             Continue with Google
           </button>
           <button
             type="button"
-            className="w-full bg-gray-50 text-gray-900 rounded-lg font-medium text-sm px-4 py-2 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 flex items-center justify-center"
+            onClick={() => handleSocialLogin("Facebook")}
+            className="w-full bg-custom-greenblue text-gray-900 rounded-lg font-medium text-sm px-4 py-2 hover:bg-custom-darkblue focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 flex items-center justify-center"
           >
-            <img
-              src={facebook}
-              alt="Facebook Icon"
-              className="h-4 w-4 inline-block mr-2"
-            />
+            <img src={facebook} alt="Facebook Icon" className="h-4 w-4 inline-block mr-2" />
             Continue with Facebook
           </button>
         </div>
 
-        <p className="text-xs font-light text-gray-500 mt-3 text-center">
+        <p className="text-xs font-light text-black mt-3 text-center">
           Don't have an account?{" "}
           <button
-            onClick={gotoSignUp}
-            className="font-medium text-blue-600 hover:underline"
+            onClick={() => navigate("/signup")}
+            className="font-medium text-black hover:underline"
           >
             Sign up here
           </button>

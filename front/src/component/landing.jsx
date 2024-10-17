@@ -12,7 +12,7 @@ function Landing() {
   return (
     <>
       {/* Header section */}
-      <div className="header py-2 lg:py-4 px-4 lg:px-8 bg-transparent flex flex-col lg:flex-row justify-between items-center fixed top-0 w-full z-20">
+      <div className="header py-2 lg:py-4 px-4 lg:px-8 bg-transparent flex shadow-sm flex-col lg:flex-row justify-between items-center fixed top-0 w-full z-20">
         <div className="logo mb-4 lg:mb-0">
           <h2 className="font-bold font-sans text-2xl lg:text-4xl text-white">
             DocAlert

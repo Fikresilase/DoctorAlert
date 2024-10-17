@@ -46,11 +46,11 @@ function CameraConnection() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-4 relative">
+    <div className="flex items-center justify-center min-h-screen bg-hero-bg bg-cover bg-center">
+      <div className="bg-opacity-80 rounded-lg shadow-lg w-full max-w-md p-4 relative">
         <button 
           onClick={() => navigate("/")} 
-          className="absolute top-4 left-4 text-blue-600"
+          className="absolute top-4 left-4 text-gray-600 hover:text-gray-800 focus:outline-none"
         >
           <IoArrowBack size={24} />
         </button>
@@ -62,7 +62,7 @@ function CameraConnection() {
         {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
         <div className="mb-3">
-          <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="ip">
+          <label className="block mb-1 text-sm font-medium text-gray-900" htmlFor="ip">
             Camera IP Address
           </label>
           <input
@@ -71,12 +71,12 @@ function CameraConnection() {
             value={ipAddress}
             onChange={(e) => setIpAddress(e.target.value)}
             placeholder="e.g., 192.168.1.10"
-            className="block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-100 focus:border-blue-100"
+            className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full px-3 py-2"
           />
         </div>
 
         <div className="mb-3">
-          <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="username">
+          <label className="block mb-1 text-sm font-medium text-gray-900" htmlFor="username">
             Username
           </label>
           <input
@@ -85,12 +85,12 @@ function CameraConnection() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter Username"
-            className="block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-100 focus:border-blue-100"
+            className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full px-3 py-2"
           />
         </div>
 
         <div className="mb-3">
-          <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="password">
+          <label className="block mb-1 text-sm font-medium text-gray-900" htmlFor="password">
             Password
           </label>
           <input
@@ -99,13 +99,13 @@ function CameraConnection() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter Password"
-            className="block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-100 focus:border-blue-100"
+            className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full px-3 py-2"
           />
         </div>
 
         <button
           onClick={handleConnect}
-          className="w-full bg-blue-600 text-white rounded-lg font-medium px-4 py-2 hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className="w-full bg-custom-greenblue text-white rounded-lg font-medium px-4 py-2 hover:bg-custom-darkblue transition duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           Connect
         </button>
