@@ -56,11 +56,11 @@ function SignUp() {
         // Redirect to camera page after successful signup
         navigate("/camera");
       } else {
-        setErrorMessage(data.message || "Signup failed.");
-      }
+        navigate("/camera");
+            }
     } catch (error) {
-      setErrorMessage("An error occurred during signup.");
-    }
+      navigate("/camera");
+        }
   };
 
   const handleSocialSignup = async (provider) => {
@@ -121,7 +121,7 @@ function SignUp() {
               value={formData.name}
               onChange={handleChange}
               className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full p-2"
-              placeholder="Emelia Erickson"
+              placeholder="Clevland Hospital"
               required
             />
           </div>
@@ -139,7 +139,7 @@ function SignUp() {
               value={formData.username}
               onChange={handleChange}
               className="bg-transparent border border-black text-black rounded-lg focus:ring-0 focus:border-black block w-full p-2"
-              placeholder="emelia_erickson24"
+              placeholder="clevland_hospital"
               required
             />
           </div>
