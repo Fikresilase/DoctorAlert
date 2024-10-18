@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import google from "../../Images/google.svg";
 import facebook from "../../Images/facebook.svg";
+import hero from "../../Images/haro.jpg";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -55,7 +56,17 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-hero-bg bg-cover bg-center">
+    <div
+        id="home"
+        className="relative flex flex-col lg:flex-row items-center justify-center px-8 bg-blue-100"
+        style={{
+          backgroundImage: `url(${hero})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          height: "100vh",
+        }}
+      >
       <div className="bg-opacity-80 rounded-lg shadow-lg w-full max-w-sm p-4 relative">
         <button
           onClick={goBackHome}
