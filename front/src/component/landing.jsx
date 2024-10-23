@@ -24,7 +24,7 @@ function Landing() {
         <div className="registration flex flex-wrap justify-center lg:justify-end">
           <button
             onClick={gotosignup}
-            className="px-3 lg:px-4 py-1 lg:py-2 text-sm lg:text-base rounded font-sans border-none font-semibold hover:text-white text-custom-greenblue-900 bg-custom-greenblue hover:bg-custom-darkblue hover:shadow-md transition-all duration-300"
+            className="px-3 lg:px-4 py-1 lg:py-2 text-white text-sm lg:text-base rounded font-sans border-none font-semibold hover:text-white text-custom-greenblue-900 bg-custom-greenblue hover:bg-custom-darkblue hover:shadow-md transition-all duration-300"
           >
             Register your Hospital
           </button>
